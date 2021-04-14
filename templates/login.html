@@ -1,0 +1,34 @@
+{% extends 'base_blog.html' %}
+
+<body>
+    <h1>Post play<h4>Only for geeks</h4>
+    </h1>
+
+    <div class="topnav">
+        {% if user.is_authenticated %}
+        <a href="#">Hi {{user.username}}</a>
+        <a href="accounts/logout">Logout</a>
+        {% else %}
+        <a href="register">Register</a>
+        <a href="login">Login</a>
+        {% endif %}
+    </div>
+    <p>
+        {% for snips in snipps %}
+
+        <img src="{{snips.img.url}}" alt="Image" class="img-fluid">
+        <h2 class="font-size-regular"><a href="#">{{snips.blogname}}</a></h2>
+        <h3>{{snips.user}}</h3>
+        {% if user.is_authenticated %}
+        <p>{{snips.blogdes}}</p>
+        {% else %}
+        <p>Register/Login to know more</p>
+        {% endif %}
+
+
+        {% endfor %}
+
+    </p>
+    </div>
+</body>
+

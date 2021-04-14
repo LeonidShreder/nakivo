@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+
+{% block admin-panel %}
+    <div class="btn btn-light">
+        <a class="btn btn-light dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
+           aria-haspopup="true" aria-expanded="false">
+            Create
+        </a>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <a class="dropdown-item" href="{% url 'post_create_url' %}">Post</a>
+
+        </div>
+    </div>
+    <a href="{{ admin_object.get_update_url }}" class="btn btn-light edit" style= "{% if post_detail %}display: block;{% endif %}">Edit</a>
+{% endblock %}
