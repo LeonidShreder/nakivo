@@ -89,7 +89,7 @@
                                     <a class="page-link" href="?page={{ n }}">{{ n }}<span
                                             class="sr-only">(current)</span></a>
                                 </li>
-                            {% elif n > page_object.number|add:-3 and n < page_object.number|add:3 %}
+                            {% elif n > page_object.number|add:-4 and n < page_object.number|add:4 %}
                                 <li class="page-item"><a class="page-link" href="?page={{ n }}">{{ n }}</a></li>
                             {% endif %}
                         {% endfor %}

@@ -2,7 +2,7 @@ import profile
 
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
-from django.views.generic import View
+from django.views.generic import View, UpdateView
 from .forms import PostForm, NewUserForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
@@ -121,31 +121,26 @@ class PostUpdate(LoginRequiredMixin, View):
         bound_form = self.model_form(instance=obj)
         return render(request, self.template, context={'form': bound_form, self.model.__name__.lower(): obj})
 
-    @login_required
     def post(self, request, slug):
         obj = self.model.objects.get(slug__iexact=slug)
         bound_form = self.model_form(request.POST, instance=obj)
-        if request.user == obj.user:
-
-            if bound_form.is_valid():
-                new_obj = bound_form.save()
+        if bound_form.is_valid():
+            new_obj = bound_form.save()
             return redirect(new_obj)
-        return render(request, self.template, context={'form': bound_form, self.model.__name__.lower(): obj})
+        return render(request, self.template, context={'form': bound_form, })
 
 
 class PostDelete(LoginRequiredMixin, View):
     model = Post
-    template = ''
+    template = 'post_delete_form.html'
     redirect_url = 'posts_list_url'
-    raise_exception = True
 
     def get(self, request, slug):
         obj = self.model.objects.get(slug__iexact=slug)
         return render(request, self.template, context={self.model.__name__.lower(): obj})
 
-    @login_required
     def post(self, request, slug):
         obj = self.model.objects.get(slug__iexact=slug)
-        if request.user == obj.user:
-            obj.delete()
+        obj.delete()
+
         return redirect(reverse(self.redirect_url))

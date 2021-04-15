@@ -1,6 +1,6 @@
 {% extends 'base_blog.html' %}
 
-{%  block title %}
+{% block title %}
     {{ post.title }} - {{ block.super }}
 {% endblock %}
 
@@ -19,4 +19,11 @@
         Author:
         {{ post.author }}
     </p>
+    <a href="{% url 'post_delete_url' slug=post.slug %}">
+        <button type="submit" name="button" class="btn btn-danger">Delete</button>
+    </a>
+    <a href="{% url 'post_update_url' slug=post.slug %}" method="post">
+        <button type="submit" name="button" class="btn btn-light"> Update</button>
+    </a>
+
 {% endblock %}
